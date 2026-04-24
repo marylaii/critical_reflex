@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maria Khodaeva // PORTFOLIO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@700&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #030405;
+  --cyan:   #a1c6d9;
+  --white:  #d8ebf2;
+  --yellow: #e5f29b;
+  --red:    #ff3333;
+  --red2:   #cc3333;
+  --dim:    #3a5560;
+  --mid:    #7a9fb0;
+  --body:   #b0c8d4;
+  --mono:   'Space Mono', monospace;
+  --disp:   'Syncopate', sans-serif;
+  --vt:     'VT323', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--mono);
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+a { color: var(--cyan); }
+a:hover { color: var(--yellow); }
+
+/* ─── FIXED OVERLAYS ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03; mix-blend-mode: overlay;
+}
+.crt-lines {
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
+}
+.crt-vignette {
+  position: fixed; inset: 0; z-index: 998; pointer-events: none;
+  background: radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.8) 100%);
+}
+.chromatic {
+  position: fixed; inset: 0; z-index: 997; pointer-events: none;
+  background: linear-gradient(90deg,rgba(255,0,0,0.04),rgba(0,255,0,0.015),rgba(0,0,255,0.04));
+  mix-blend-mode: overlay;
+  animation: chromaShift 7s infinite steps(1);
+}
+@keyframes chromaShift {
+  0%,90%,100%{transform:translate(0,0)}
+  92%{transform:translate(-1px,0)}
+  94%{transform:translate(1px,0)}
+  96%{transform:translate(0,1px)}
+}
+
+/* ─── CROSSHAIRS ─── */
+.crosshair {
+  position: fixed; width:20px; height:20px; pointer-events:none; z-index:500;
+}
+.crosshair::before, .crosshair::after { content:''; position:absolute; background:var(--cyan); opacity:0.4; }
+.crosshair::before { top:50%;left:0;width:100%;height:1px; }
+.crosshair::after  { left:50%;top:0;height:100%;width:1px; }
+.ch-a{top:8%;right:6%} .ch-b{bottom:15%;left:4%} .ch-c{top:40%;right:22%}
+
+/* ─── BLINK ─── */
+.blink { animation: blink 1.2s infinite steps(1); }
+@keyframes blink { 50%{opacity:0} }
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top:0; z-index:200;
+  background: rgba(3,4,5,0.95);
+  border-bottom: 1px solid rgba(161,198,217,0.15);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; gap:0;
+  padding: 0 32px;
+  overflow-x: auto;
+}
+nav::-webkit-scrollbar { display:none; }
+.nav-brand {
+  font-family: var(--disp);
+  font-size: 0.65rem;
+  color: var(--yellow);
+  padding: 14px 20px 14px 0;
+  border-right: 1px solid rgba(161,198,217,0.15);
+  margin-right: 16px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-link {
+  font-size: 0.52rem;
+  color: var(--mid);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 14px 14px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.1s steps(2), border-color 0.1s steps(2);
+}
+.nav-link:hover, .nav-link.active { color: var(--yellow); border-bottom-color: var(--yellow); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 92vh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px 48px;
+  position: relative; overflow: hidden;
+}
+#hero::before {
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(161,198,217,0.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(161,198,217,0.035) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+#hero::after {
+  content:'';
+  position:absolute; inset:0;
+  pointer-events:none;
+  background-image: url('images/background-image.png');
+  background-size: cover;
+  background-position: 68% center;
+  opacity: 0.45;
+  mask-image: radial-gradient(ellipse 62% 82% at 70% 50%, black 15%, rgba(0,0,0,0.55) 55%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 62% 82% at 70% 50%, black 15%, rgba(0,0,0,0.55) 55%, transparent 85%);
+}
+#hero > * { position: relative; z-index: 1; }
+.hero-eyebrow {
+  font-size:0.55rem; color:var(--mid); letter-spacing:0.2em; text-transform:uppercase;
+  margin-bottom:20px;
+}
+.hero-eyebrow span { color:var(--yellow); }
+.hero-title {
+  font-family: var(--vt);
+  font-size: clamp(4rem,10vw,10rem);
+  color: var(--yellow);
+  line-height: 0.85;
+  text-shadow: 4px 0 var(--red2), -2px 0 rgba(0,200,255,0.45);
+  animation: gtitle 8s infinite;
+  user-select: none;
+  margin-bottom: 28px;
+}
+@keyframes gtitle {
+  0%,92%,100%{text-shadow:4px 0 var(--red2),-2px 0 rgba(0,200,255,0.45);transform:none}
+  94%{text-shadow:-5px 0 var(--red),4px 0 rgba(0,200,255,0.7);transform:translate(2px,-1px) skewX(-1deg)}
+  96%{text-shadow:4px 0 var(--red2),-2px 0 rgba(0,200,255,0.45);transform:translate(-1px,2px)}
+  98%{text-shadow:none;transform:translate(-2px,-2px)}
+}
+.hero-sub {
+  font-size: 0.72rem;
+  color: var(--cyan);
+  border-left: 3px solid var(--red2);
+  padding-left: 14px;
+  line-height: 1.9;
+  max-width: 600px;
+}
+.hero-sub b { color: var(--white); }
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 48px;
+  font-size: 0.55rem; color: var(--dim);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  display: flex; gap: 10px; align-items: center;
+}
+.bounce { animation: bounce 2s infinite; display:inline-block; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(4px)} }
+
+/* ─── DIVIDER ─── */
+.rule {
+  height: 64px;
+  display: flex; align-items: center;
+  padding: 0 48px;
+  border-top: 1px solid rgba(161,198,217,0.12);
+  border-bottom: 1px solid rgba(161,198,217,0.12);
+  background: repeating-linear-gradient(-45deg,var(--yellow) 0,var(--yellow) 1px,transparent 1px,transparent 10px);
+  background-size: 100% 100%;
+  position: relative;
+  overflow: hidden;
+}
+.rule::before {
+  content:'';
+  position:absolute;inset:0;
+  background: var(--bg);
+  opacity: 0.88;
+}
+.rule-text {
+  position:relative;z-index:1;
+  font-size:0.55rem; color:var(--mid); letter-spacing:0.18em; text-transform:uppercase;
+}
+.rule-num {
+  position:relative;z-index:1;
+  font-family:var(--vt); font-size:2.5rem; color:rgba(229,242,155,0.12);
+  margin-left:auto;
+}
+
+/* ─── SHARED PANEL ─── */
+.panel {
+  border: 3px solid var(--white);
+  box-shadow: 8px 8px 0 #000;
+  background: rgba(3,4,5,0.92);
+  position: relative;
+  transition: transform 0.1s steps(2), box-shadow 0.1s steps(2);
+}
+.panel::before {
+  content:''; position:absolute; top:-5px;left:-5px;
+  width:10px;height:10px; background:var(--yellow);
+}
+.panel:hover { transform:translate(-2px,-2px); box-shadow:10px 10px 0 #000; }
+.panel-banner {
+  background: var(--yellow); color:var(--bg);
+  padding: 8px 20px;
+  font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:bold;
+  border-bottom: 3px solid var(--bg);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.sys-code {
+  font-size:0.56rem; color:var(--yellow); text-transform:uppercase;
+  letter-spacing:0.1em; margin-bottom:6px; display:block;
+}
+
+/* ─── SECTION LAYOUT ─── */
+section { padding: 64px 48px; position:relative; z-index:10; }
+.sec-header {
+  display:flex; align-items:baseline; gap:16px;
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(161,198,217,0.13);
+}
+.sec-n {
+  font-family:var(--vt); font-size:3.5rem;
+  color:rgba(161,198,217,0.1); line-height:1;
+}
+.sec-title {
+  font-family:var(--disp); font-size:clamp(0.75rem,1.3vw,1rem);
+  color:var(--yellow); letter-spacing:0.05em; text-transform:uppercase;
+}
+.sec-code { font-size:0.52rem; color:var(--mid); margin-left:auto; letter-spacing:0.1em; }
+
+/* redact */
+.redact {
+  background:var(--white); color:var(--white);
+  padding:0 3px; cursor:help; transition:all 0.15s;
+}
+.redact:hover { background:transparent; color:var(--red); }
+
+/* ─── 1. PHYSICAL EVENT - KSP2 ESA ─── */
+.esa-grid {
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+}
+.esa-main-panel {
+  grid-column: 1/-1;
+}
+.esa-body {
+  display:grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap:0;
+}
+.esa-left {
+  padding:28px;
+  border-right: 2px solid rgba(161,198,217,0.2);
+}
+.esa-right {
+  padding:28px;
+  display:flex; flex-direction:column; gap:20px;
+}
+.project-tag-row {
+  display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;
+}
+.ptag {
+  border:1px solid rgba(161,198,217,0.3);
+  color:var(--cyan);
+  font-size:0.5rem; padding:2px 8px; text-transform:uppercase; letter-spacing:0.06em;
+}
+.ptag.red { border-color:rgba(204,51,51,0.4); color:var(--red2); }
+.ptag.yellow { border-color:rgba(229,242,155,0.4); color:var(--yellow); }
+.project-title {
+  font-family:var(--disp);
+  font-size:clamp(1rem,2vw,1.7rem);
+  line-height:1.1; text-transform:uppercase; color:var(--white);
+  margin-bottom:6px;
+}
+.project-title .acc { color:var(--yellow); }
+.body-text {
+  font-size:0.72rem; line-height:1.7; color:var(--body);
+  margin-top:12px;
+}
+.timeline {
+  margin-top:4px; position:relative;
+}
+.timeline::before {
+  content:''; position:absolute; left:5px; top:10px; bottom:10px;
+  width:1px; background:linear-gradient(to bottom,var(--cyan),rgba(161,198,217,0.1));
+}
+.t-item { display:grid; grid-template-columns:22px 1fr; gap:8px; margin-bottom:12px; }
+.t-dot {
+  width:11px;height:11px; border:2px solid var(--cyan); background:var(--bg);
+  border-radius:50%; margin-top:2px; position:relative; z-index:1;
+}
+.t-dot.y { background:var(--yellow); border-color:var(--yellow); box-shadow:0 0 6px var(--yellow); }
+.t-phase { font-size:0.56rem; color:var(--yellow); text-transform:uppercase; letter-spacing:0.07em; }
+.t-desc  { font-size:0.63rem; color:var(--mid); margin-top:2px; line-height:1.45; }
+
+.metrics-row {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  border-top:2px solid rgba(161,198,217,0.15);
+}
+.met {
+  padding:16px 18px; border-right:1px solid rgba(161,198,217,0.15);
+  text-align:center;
+}
+.met:last-child{border-right:none;}
+.met-val { font-family:var(--disp); font-size:clamp(1rem,2vw,1.5rem); color:var(--yellow); display:block; line-height:1; }
+.met-lbl { font-size:0.48rem; color:var(--cyan); text-transform:uppercase; letter-spacing:0.07em; margin-top:3px; display:block; }
+
+/* IMAGE PLACEHOLDER */
+.img-placeholder {
+  background: rgba(161,198,217,0.04);
+  border: 2px dashed rgba(161,198,217,0.2);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; padding:24px; text-align:center;
+  min-height:180px;
+  position:relative; overflow:hidden;
+}
+.img-placeholder::before {
+  content:'';
+  position:absolute;inset:0;
+  background: repeating-linear-gradient(-45deg,rgba(161,198,217,0.02) 0,rgba(161,198,217,0.02) 1px,transparent 1px,transparent 12px);
+}
+.img-ph-icon { font-size:2rem; opacity:0.3; }
+.img-ph-label { font-size:0.55rem; color:var(--dim); letter-spacing:0.1em; text-transform:uppercase; }
+.img-ph-src { font-size:0.5rem; color:rgba(161,198,217,0.3); margin-top:4px; word-break:break-all; }
+
+.mini-cards {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  margin-top:0;
+}
+.mini-card {
+  border:1px solid rgba(161,198,217,0.18);
+  padding:14px;
+  position:relative;
+  background:rgba(3,4,5,0.8);
+  transition:border-color 0.1s steps(2);
+}
+.mini-card::before {
+  content:''; position:absolute; top:-3px;left:-3px;
+  width:7px;height:7px; background:var(--cyan); opacity:0.4;
+}
+.mini-card:hover { border-color:var(--cyan); }
+.mc-label { font-size:0.52rem; color:var(--yellow); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px; display:block; }
+.mc-val { font-family:var(--vt); font-size:2.2rem; color:var(--white); line-height:1; }
+.mc-sub { font-size:0.58rem; color:var(--mid); margin-top:4px; line-height:1.4; }
+
+.warning-strip {
+  padding:12px 20px;
+  border-top:2px solid rgba(204,51,51,0.35);
+  background:rgba(255,51,51,0.04);
+  font-size:0.62rem; color:var(--red2); line-height:1.6;
+  grid-column:1/-1;
+}
+
+/* ─── 2. SPECIAL FEATURE - BG3 ─── */
+.bg3-layout {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+}
+.bg3-left { padding:28px; border-right:2px solid rgba(161,198,217,0.2); }
+.bg3-right { padding:28px; display:flex; flex-direction:column; gap:18px; }
+
+.stats-2col {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  border:1px solid rgba(161,198,217,0.18);
+  margin-top:12px;
+}
+.stat-cell {
+  padding:14px 16px;
+  border-right:1px solid rgba(161,198,217,0.15);
+  border-bottom:1px solid rgba(161,198,217,0.15);
+}
+.stat-cell:nth-child(even){ border-right:none; }
+.stat-cell:nth-last-child(-n+2){ border-bottom:none; }
+.stat-cell-val { font-family:var(--disp); font-size:clamp(0.9rem,1.8vw,1.4rem); color:var(--yellow); display:block; }
+.stat-cell-lbl { font-size:0.48rem; color:var(--cyan); text-transform:uppercase; letter-spacing:0.07em; margin-top:2px; display:block; }
+
+.press-stats {
+  border:1px solid rgba(229,242,155,0.2);
+  padding:16px;
+  background:rgba(229,242,155,0.03);
+}
+.press-row { display:flex; justify-content:space-between; align-items:baseline;
+  padding:5px 0; border-bottom:1px solid rgba(229,242,155,0.1);
+  font-size:0.63rem; }
+.press-row:last-child{border-bottom:none;}
+.press-key { color:var(--mid); }
+.press-val { color:var(--yellow); font-family:var(--disp); font-size:0.9rem; }
+
+.quote-block {
+  background:rgba(229,242,155,0.04);
+  border-left:3px solid var(--yellow);
+  padding:16px 18px;
+  font-family:var(--vt);
+  font-size:clamp(1rem,1.8vw,1.5rem);
+  color:var(--yellow);
+  line-height:1.35;
+}
+
+/* ─── 3. EXCLUSIVE INTERVIEW - DISPATCH ─── */
+.dispatch-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:0;
+}
+.dispatch-intro { grid-column:1/-1; padding:28px; border-bottom:2px solid rgba(161,198,217,0.2); }
+.char-col {
+  padding:22px 20px;
+  border-right:1px solid rgba(161,198,217,0.18);
+}
+.char-col:last-child{border-right:none;}
+.char-name { font-family:var(--disp); font-size:0.9rem; color:var(--white); text-transform:uppercase; }
+.char-views {
+  margin-top:10px; display:flex; flex-direction:column; gap:6px;
+}
+.view-row {
+  display:flex; align-items:center; gap:8px;
+  font-size:0.6rem;
+}
+.view-platform { color:var(--mid); width:62px; flex-shrink:0; }
+.view-bar-wrap { flex:1; height:4px; background:rgba(161,198,217,0.1); }
+.view-bar { height:100%; background:var(--cyan); }
+.view-bar.yt { background:var(--red2); }
+.view-bar.tik { background:var(--white); }
+.view-bar.ig { background:var(--yellow); }
+.view-num { color:var(--white); font-size:0.58rem; width:54px; text-align:right; flex-shrink:0; }
+
+.viral-strip {
+  grid-column:1/-1;
+  border-top:2px solid rgba(161,198,217,0.2);
+  padding:20px 22px;
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  align-items:start;
+}
+.viral-num {
+  font-family:var(--disp); font-size:clamp(1.5rem,3vw,2.5rem);
+  color:var(--yellow); display:block;
+}
+.viral-label { font-size:0.62rem; color:var(--mid); margin-top:4px; }
+.viral-desc { font-size:0.68rem; color:var(--body); line-height:1.6; }
+
+/* ─── 4. FEATURE IDEAS ─── */
+.ideas-grid {
+  display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;
+}
+.idea-card {
+  border:2px solid rgba(161,198,217,0.2);
+  background:rgba(3,4,5,0.85);
+  position:relative; overflow:hidden;
+  transition:border-color 0.1s steps(2), transform 0.1s steps(2);
+}
+.idea-card::before {
+  content:''; position:absolute; top:-4px;left:-4px;
+  width:8px;height:8px; background:var(--cyan); opacity:0.5;
+}
+.idea-card:hover { border-color:var(--cyan); transform:translate(-2px,-2px); }
+.idea-img-zone {
+  height:190px; overflow:hidden; position:relative;
+}
+.idea-img-zone img {
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  filter:saturate(0.7) brightness(0.85);
+  transition: filter 0.2s;
+}
+.idea-card:hover .idea-img-zone img { filter:saturate(1) brightness(0.95); }
+.idea-body { padding:16px; }
+.idea-tags { display:flex; gap:4px; flex-wrap:wrap; margin-bottom:8px; }
+.i-tag {
+  font-size:0.46rem; padding:1px 6px; text-transform:uppercase;
+  letter-spacing:0.06em; border:1px solid rgba(161,198,217,0.25); color:var(--dim);
+}
+.i-tag.y { border-color:rgba(229,242,155,0.35); color:var(--yellow); }
+.idea-title { font-family:var(--disp); font-size:0.8rem; text-transform:uppercase; color:var(--white); margin-bottom:6px; line-height:1.2; }
+.idea-hook { font-size:0.62rem; color:var(--yellow); margin-bottom:8px; }
+.idea-desc { font-size:0.62rem; color:var(--mid); line-height:1.55; }
+.idea-status {
+  margin-top:10px; padding:6px 10px;
+  background:rgba(204,51,51,0.08);
+  border:1px solid rgba(204,51,51,0.3);
+  font-size:0.5rem; color:var(--red2);
+  text-transform:uppercase; letter-spacing:0.08em;
+}
+
+/* placeholder image fallback inside idea cards */
+.idea-img-ph {
+  width:100%; height:100%;
+  background:rgba(161,198,217,0.05);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:6px;
+}
+.idea-img-ph span { font-size:2rem; opacity:0.2; }
+.idea-img-ph small { font-size:0.48rem; color:var(--dim); letter-spacing:0.1em; text-transform:uppercase; }
+
+/* ─── 5. NOTION (extra idea) ─── */
+.extra-wrap {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+}
+.extra-left { padding:28px; border-right:2px solid rgba(161,198,217,0.2); }
+.extra-right { padding:28px; display:flex; flex-direction:column; gap:16px; }
+
+.notion-link {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:0.62rem; color:var(--cyan); text-decoration:none;
+  border:1px solid rgba(161,198,217,0.3); padding:6px 14px;
+  transition:border-color 0.1s steps(2), color 0.1s steps(2);
+}
+.notion-link:hover { border-color:var(--yellow); color:var(--yellow); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top:3px solid var(--white);
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  position:relative; z-index:10;
+}
+.ft-link {
+  padding:20px 48px;
+  font-size:0.6rem; color:var(--cyan); text-decoration:none;
+  letter-spacing:0.1em; text-transform:uppercase;
+  border-right:1px solid rgba(161,198,217,0.18);
+  transition:color 0.1s steps(2);
+}
+.ft-link:hover{ color:var(--yellow); }
+.ft-mid {
+  padding:20px 32px;
+  font-size:0.52rem; color:var(--mid);
+  letter-spacing:0.15em; text-align:center;
+}
+.ft-right {
+  padding:20px 48px;
+  font-size:0.6rem; color:var(--mid);
+  letter-spacing:0.1em; text-transform:uppercase;
+  border-left:1px solid rgba(161,198,217,0.18);
+  text-align:right;
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  section{padding:48px 24px;}
+  .esa-body,.bg3-layout,.dispatch-grid,.ideas-grid,.extra-wrap{grid-template-columns:1fr;}
+  .esa-left,.bg3-left,.char-col,.dispatch-intro{border-right:none;border-bottom:2px solid rgba(161,198,217,0.2);}
+  .dispatch-grid .char-col{border-right:none;border-bottom:1px solid rgba(161,198,217,0.18);}
+  .stats-2col{grid-template-columns:1fr 1fr;}
+  .metrics-row{grid-template-columns:1fr 1fr;}
+  .viral-strip{grid-template-columns:1fr;}
+  nav{padding:0 16px;}
+  #hero{padding:48px 24px;}
+  footer{grid-template-columns:1fr;}
+  .ft-link,.ft-mid,.ft-right{border:none;text-align:left;padding:12px 24px;}
+}
+</style>
+</head>
+<body>
+
+<div class="crt-lines"></div>
+<div class="crt-vignette"></div>
+<div class="chromatic"></div>
+<div class="crosshair ch-a"></div>
+<div class="crosshair ch-b"></div>
+<div class="crosshair ch-c"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Maria Khodaeva // PORTFOLIO // CRITICAL REFLEX APPLICATION</div>
+  <a class="nav-link" href="#esa">01 ESA EVENT</a>
+  <a class="nav-link" href="#bg3">02 BG3 SPECIAL</a>
+  <a class="nav-link" href="#dispatch">03 DISPATCH</a>
+  <a class="nav-link" href="#icommunit">04 ICOMMUNITY</a>
+  <a class="nav-link" href="#ideas">05 FEATURE IDEAS</a>
+  <a class="nav-link" href="#extra">06 MORE</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">CLASSIFICATION: BRAND_MANAGER_OPS // <span>CLEARANCE APPROVED</span> <span class="blink">_</span></div>
+  <div class="hero-title" id="htitle" data-text="PORTFOLIO">PORTFOLIO</div>
+  <div class="hero-sub">
+    <b>SUBJECT:</b> Maria Khodaeva, Brand Manager candidate for Critical Reflex<br>
+    <b>BACKGROUND:</b> ICO Partners // Private Division, Take-Two Int.<br>
+    <b>SCOPE:</b> Selected campaign highlights subject is proud of<br>
+    <b>STATUS:</b> <span style="color:var(--yellow)">READY TO WORK</span>
+  </div>
+  <div class="hero-scroll"><span class="bounce">▼</span> SCROLL TO REVIEW CASE FILES</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 01  ESA / KSP2 EVENT                                   -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule" id="esa">
+  <div class="rule-text">01 // PHYSICAL EVENT — ESA x KSP2 INSIDERS</div>
+  <div class="rule-num">01</div>
+</div>
+
+<section>
+  <div class="sec-header">
+    <span class="sec-n">01</span>
+    <span class="sec-title">Kerbal Space Program 2 - Preview Event in collaboration with ESA</span>
+    <span class="sec-code">DIR://PRIVATE_DIVISION/KSP2/INSIDERS_EVENT</span>
+  </div>
+
+  <div class="panel">
+    <div class="panel-banner">
+      <span>Physical Event // KSP2 x ESA - FEBRUARY 2023 - NOORDWIJK, NETHERLANDS</span>
+      <span style="opacity:0.55;">◼ MISSION COMPLETE</span>
+    </div>
+
+    <div class="esa-body">
+      <!-- LEFT: group photo + all text blocks -->
+      <div class="esa-left">
+        
+        <span class="sys-code">DIR://PRIVATE_DIVISION/KSP2/INSIDERS_EVENT</span>
+        <div class="project-title">PREVIEW EVENT AT <span class="acc">EUROPEAN SPACE AGENCY</span> FACILITIES</div>
+        <div class="body-text">
+          Organized a preview event for Kerbal Space Program 2's Early Access launch. Invited key journalists and content creators from <span class="redact">USA, EMEA and Japan</span> to ESA facilities in Noordwijk, Netherlands. Designed as an immersive event that put guests inside the actual world KSP2 simulates.<br><br>
+          Apart from the play session, special events included: a mission design workshop at ESA, retro arcades post-event chill, and a private "dinner under the stars" at a <span class="redact">planetarium</span>, which was timed to coincide with a real SpaceX Falcon 9 launch happening that same day, watched live by the group on the dome of the building.
+        </div>
+
+        <div style="margin-top:20px;">
+          <span class="sys-code">EVIDENCE://VERIFIED_RESULTS</span>
+          <div class="mini-cards">
+            <div class="mini-card">
+              <span class="mc-label">Attendees</span>
+              <div class="mc-val">30 PARTICIPANTS</div>
+              <div class="mc-sub">Scott Manley, Matt Lowne, Space.com, GameSpot, etc.</div>
+            </div>
+            <div class="mini-card">
+              <span class="mc-label">Coverage in</span>
+              <div class="mc-val">6 LANGUAGES</div>
+              <div class="mc-sub">Creators and press from USA, UK, Europe, Japan</div>
+            </div>
+            <div class="mini-card" style="grid-column:1/-1;">
+              <span class="mc-label">Sentiment Score</span>
+              <div class="mc-val" style="color:var(--yellow)">Overwhelmingly Positive</div>
+              <div class="mc-sub">Multiple attendees to this date say it was <span class="redact">"the best event they've ever been to"</span>. KSP fans were happy to see all their favorite creators hanging out together, and were actively discussing it on forums and socials.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <span class="sys-code">EXHIBIT_A://COVERAGE_LINKS</span>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+            <a class="notion-link" href="https://www.youtube.com/watch?v=example" target="_blank">▶ KSP2: APOLLO STYLE MUN MISSION (800K views)</a>
+            <a class="notion-link" href="https://www.reddit.com/r/KerbalSpaceProgram/comments/10yxot3/the_ksp2_insiders_event_was_amazing/" target="_blank">▶ Reddit: "KSP2 Insiders Event was amazing"</a>
+            <a class="notion-link" href="https://x.com/DJSnM/status/1628840207368990721" target="_blank">▶ X/Twitter: Attendee post-event thread</a>
+            <a class="notion-link" href="https://www.theguardian.com/games/2023/mar/06/kerbal-space-program-helping-space-flight-experts-of-the-future" target="_blank">▶ The Guardian: KSP 2 Preview and Event Impressions</a>
+          </div>
+        </div>
+        <img src="images/esa-event.png"
+             alt="KSP2 x ESA Insiders Event — group photo, Noordwijk 2023"
+             style="width:100%;height:auto;display:block;filter:saturate(0.8) brightness(0.9);border:1px solid rgba(161,198,217,0.2);margin-bottom:20px;" />
+      </div>
+
+      <!-- RIGHT: planetarium photo -->
+      <div class="esa-right">
+        <img src="images/esa-planetarium.png"
+             alt="Planetarium dinner — Under the Stars event, KSP2 x ESA"
+             style="width:100%;height:auto;display:block;filter:saturate(0.8) brightness(0.9);border:1px solid rgba(161,198,217,0.2);" />
+      </div>
+    </div>
+
+    <div class="warning-strip">
+      ⚠ NOTE ON LOGISTICS: SpaceX Falcon 9 launch was not in the original event plan. It happened to be launching that day. Subject did not arrange this but is noted for recognising it as an opportunity in real time and orranging the live streaming of the event on the dome.
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 02  BG3 SPECIAL FEATURE                                -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule" id="bg3">
+  <div class="rule-text">02 // SPECIAL FEATURE — BALDUR'S GATE 3 x ELIJAH WOOD & SEAN ASTIN</div>
+  <div class="rule-num">02</div>
+</div>
+
+<section>
+  <div class="sec-header">
+    <span class="sec-n">02</span>
+    <span class="sec-title">Baldur's Gate 3 - Hobbits special</span>
+    <span class="sec-code">DIR://ICO/LARIAN/BG3/UNEXPECTED_ADVENTURE</span>
+  </div>
+
+  <div class="panel">
+    <div class="panel-banner">
+      <span>SPECIAL FEATURE // BG3 x HOBBITS - DEC 2023 - LA, USA</span>
+      <span style="opacity:0.55;">◼ MISSION COMPLETE</span>
+    </div>
+
+    <div class="bg3-layout">
+      <div class="bg3-left">
+        <span class="sys-code">DIR://ICO/LARIAN/BG3/UNEXPECTED_ADVENTURE</span>
+        <div class="project-title">Baldur's Gate 3: An Unexpected Adventure Special ft. <span class="acc">Elijah Wood</span> & <span class="acc">Sean Astin</span></div>
+       
+        <div class="body-text">
+          Larian asked ICO Partners to create a surprising activation to keep BG3 in the conversation heading into end-of-year awards season.<br><br>
+          ICO partnered with Elijah Wood and Sean Astin (the Lord of the Rings duo) to run a BG3 play session led by Larian's Swen Vincke. Subject came up with a concept: Frodo and Sam, who once carried a Ring of Power across Middle Earth, now find an in-game item that taunts them and decide to destroy it.<br><br>
+          Subject's contribution: writing the script (in collaboration with a colleague), adapting the LoTR plot into BG3's mechanics and trying to make it funny. Subject believes <span class="redact">it worked.</span><br><br>
+        </div>
+        
+
+         <div>
+          <span class="sys-code">ROLE://SUBJECT_CONTRIBUTION</span>
+          <ul style="margin-top:8px;list-style:none;display:flex;flex-direction:column;gap:6px;">
+            <li style="font-size:0.65rem;color:var(--body);padding:6px 0;border-bottom:1px solid rgba(161,198,217,0.1);display:flex;gap:8px;"><span style="color:var(--red2);font-weight:bold;">//</span>Script development (in collaboration with a colleague), adapting the LoTR plot into BG3's mechanics.</li>
+            <li style="font-size:0.65rem;color:var(--body);padding:6px 0;border-bottom:1px solid rgba(161,198,217,0.1);display:flex;gap:8px;"><span style="color:var(--red2);font-weight:bold;">//</span>Contributing to creative content creators campaign, including turning all BG3 companions into frogs.</li>
+            <li style="font-size:0.65rem;color:var(--body);padding:6px 0;display:flex;gap:8px;"><span style="color:var(--red2);font-weight:bold;">//</span>Reporting support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg3-right">
+        <div>
+          <span class="sys-code">VIDEO_STATS://CONFIRMED</span>
+          <div class="stats-2col">
+            <div class="stat-cell">
+              <span class="stat-cell-val">5M+</span>
+              <span class="stat-cell-lbl">Total Views (IGN + socials)</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-cell-val">768K+</span>
+              <span class="stat-cell-lbl">Total Interactions</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <span class="sys-code">PRESS_STATS://CONFIRMED</span>
+          <div class="press-stats">
+            <div class="press-row">
+              <span class="press-key">Total Articles</span>
+              <span class="press-val">110</span>
+            </div>
+            <div class="press-row">
+              <span class="press-key">Total Unique Monthly Viewers</span>
+              <span class="press-val">100M+</span>
+            </div>
+          </div>
+        </div>
+
+      
+        <img src="images/bg3-thumbnail.jpg"
+             alt="Baldur's Gate 3: An Unexpected Adventure ft. Elijah Wood and Sean Astin — video thumbnail"
+             style="width:100%;height:auto;display:block;filter:saturate(0.8) brightness(0.9);border:1px solid rgba(161,198,217,0.2);margin-top:20px;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 03  DISPATCH - ART DIRECTOR INTERVIEW                  -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule" id="dispatch">
+  <div class="rule-text">03 // EXCLUSIVE INTERVIEW - DISPATCH x IGN ART DIRECTOR FEATURE</div>
+  <div class="rule-num">03</div>
+</div>
+
+<section>
+  <div class="sec-header">
+    <span class="sec-n">03</span>
+    <span class="sec-title">Dispatch - Exclusive Character Art Interview with IGN</span>
+    <span class="sec-code">DIR://ICO/ADHOC_STUDIO/DISPATCH/ART_DIRECTOR_INTERVIEW</span>
+  </div>
+
+  <div class="panel">
+    <div class="panel-banner">
+      <span>SPECIAL FEATURE // DISPATCH x IGN - NOV 2025</span>
+      <span style="opacity:0.55;">◼ MISSION COMPLETE</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:0;">
+
+      <!-- LEFT: intro + all stats stacked + viral highlight -->
+      <div style="padding:28px;border-right:2px solid rgba(161,198,217,0.2);">
+        <span class="sys-code">DIR://ICO/ADHOC_STUDIO/DISPATCH/ART_DIRECTOR_INTERVIEW</span>
+        <div class="project-title">Dispatch - special interview for <span class="acc">IGN</span> GOING VIRAL</div>
+        <div class="body-text">
+          Subject noticed the Dispatch community was actively debating what the game's hero designs reminded them of, with some accusing developers of copying other IPs (e.g., Malevola looking like Karlach). She decided to turn discussion into a story and arrange an exclusive interview with IGN to have Art Director <b>Derek Stratton</b> walk through the inspiration behind every single character design.<br><br>
+          The interview became a short video content series across YT Shorts, TikTok, and Instagram. All videos got hundreds of thousands of views. Viral highlight: Derek explained that inspiration for <b>Malevola</b> was influencer <b>LeanBeefPatty</b> who, upon learning this, cosplayed the character irl. The resulting post hit <span class="redact">5.7M views on Instagram only.</span>
+        </div>
+
+        <div style="margin-top:20px;">
+          <span class="sys-code">EVIDENCE://VERIFIED_RESULTS</span>
+
+          <div style="margin-top:12px;padding-bottom:14px;border-bottom:1px solid rgba(161,198,217,0.15);">
+            <div class="char-name" style="margin-bottom:8px;">MALEVOLA</div>
+            <div class="char-views">
+              <div class="view-row">
+                <span class="view-platform">YouTube</span>
+                <div class="view-bar-wrap"><div class="view-bar yt" style="width:30%"></div></div>
+                <span class="view-num">297K</span>
+              </div>
+              <div class="view-row">
+                <span class="view-platform">TikTok</span>
+                <div class="view-bar-wrap"><div class="view-bar tik" style="width:100%"></div></div>
+                <span class="view-num">1M</span>
+              </div>
+              <div class="view-row">
+                <span class="view-platform">Instagram</span>
+                <div class="view-bar-wrap"><div class="view-bar ig" style="width:100%"></div></div>
+                <span class="view-num">2.4M</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:14px 0;border-bottom:1px solid rgba(161,198,217,0.15);">
+            <div class="char-name" style="margin-bottom:8px;">BEEF</div>
+            <div class="char-views">
+              <div class="view-row">
+                <span class="view-platform">YouTube</span>
+                <div class="view-bar-wrap"><div class="view-bar yt" style="width:52%"></div></div>
+                <span class="view-num">507K</span>
+              </div>
+              <div class="view-row">
+                <span class="view-platform">TikTok</span>
+                <div class="view-bar-wrap"><div class="view-bar tik" style="width:72%"></div></div>
+                <span class="view-num">695K</span>
+              </div>
+              <div class="view-row">
+                <span class="view-platform">Instagram</span>
+                <div class="view-bar-wrap"><div class="view-bar ig" style="width:10%"></div></div>
+                <span class="view-num">100K</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:14px 0;border-bottom:1px solid rgba(161,198,217,0.15);">
+            <div class="char-name" style="margin-bottom:8px;">SONAR</div>
+            <div class="char-views">
+              <div class="view-row">
+                <span class="view-platform">YouTube</span>
+                <div class="view-bar-wrap"><div class="view-bar yt" style="width:74%"></div></div>
+                <span class="view-num">714K</span>
+              </div>
+              <div class="view-row">
+                <span class="view-platform">TikTok</span>
+                <div class="view-bar-wrap"><div class="view-bar tik" style="width:47%"></div></div>
+                <span class="view-num">456K</span>
+              </div>
+              <div class="view-row">
+                <span class="view-platform">Instagram</span>
+                <div class="view-bar-wrap"><div class="view-bar ig" style="width:83%"></div></div>
+                <span class="view-num">798K</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding-top:16px;">
+            <span class="viral-num">5.7M</span>
+            <div class="viral-label">Instagram views — LeanBeefPatty Malevola cosplay</div>
+            <div style="margin-top:8px;display:flex;gap:8px;">
+              <a class="notion-link" href="https://www.reddit.com/r/DispatchTheGame/comments/1ppm36p/leanbeefpatty_cosplayed_as_malevola_after_the/" target="_blank" style="font-size:0.52rem;">▶ Reddit thread</a>
+              <a class="notion-link" href="https://www.instagram.com/leanbeefpatty/reel/DSI2WGWEgPd/" target="_blank" style="font-size:0.52rem;">▶ Instagram reel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Derek image -->
+      <div style="padding:28px;display:flex;flex-direction:column;gap:18px;">
+        <div style="position:relative;overflow:hidden;border:1px solid rgba(161,198,217,0.2);">
+          <img src="images/dispatch-derek.png"
+               alt="Derek Stratton explains the inspiration behind Malevola's design"
+               style="width:100%;height:auto;display:block;filter:saturate(0.8) brightness(0.9);" />
+          <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(3,4,5,0.9));padding:16px 10px 8px;">
+            <span style="font-size:0.48rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.08em;">Art Director Derek Stratton — Malevola design breakdown</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 04  ICOMMUNITY                                          -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule" id="icommunit">
+  <div class="rule-text">04 // COMMUNITY INFRASTRUCTURE — ICOMMUNITY DISCORD</div>
+  <div class="rule-num">04</div>
+</div>
+
+<section>
+  <div class="sec-header">
+    <span class="sec-n">04</span>
+    <span class="sec-title">ICOmmunity - Agency Discord for Press and Creators</span>
+    <span class="sec-code">DIR://ICO_PARTNERS/ICOMMUNITY</span>
+  </div>
+
+  <div class="panel">
+    <div class="panel-banner">
+      <span>DIGITAL EVENTS // ICOMMUNITY DISCORD - Jan 2024-ONGOING</span>
+      <span style="display:flex;align-items:center;gap:5px;"><span class="blink" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#2d6a2d;"></span>MISSION ONGOING</span>
+    </div>
+
+    <div style="padding:28px;">
+      <span class="sys-code">DIR://ICO_PARTNERS/ICOMMUNITY</span>
+      <div class="project-title">A <span class="acc">DISCORD SERVER</span> FOR MEDIA RELATIONS AND DIGITAL EVENTS</div>
+      <div class="body-text">
+        Co-established an ICOmmunity Discord server for the journalists, content creators, and ICO clients.<br><br>
+        It functions as the primary place for <span class="redact">virtual press events and interviews</span>. It replaces physical press events with a free, faster-to-arrange, more accessible alternative. Editors happily send their writers to virtual events when it doesn't cost them the whole work day.
+      </div>
+
+      <div style="margin-top:20px;">
+        <span class="sys-code">VITALS://ICOMMUNITY_METRICS</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(161,198,217,0.18);margin-top:8px;max-width:400px;">
+          <div class="stat-cell">
+            <span class="stat-cell-val">550+</span>
+            <span class="stat-cell-lbl">Total Members</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-cell-val">40+</span>
+            <span class="stat-cell-lbl">Digital Events Hosted</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <span class="sys-code">OPERATION://USE_CASES</span>
+        <ul style="margin-top:8px;list-style:none;display:flex;flex-direction:column;gap:6px;">
+          <li style="font-size:0.65rem;color:var(--body);padding:6px 0;border-bottom:1px solid rgba(161,198,217,0.1);display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--yellow);font-weight:bold;flex-shrink:0;">//</span>
+            Virtual events: Primary venue for ICO's virtual presentations. Media joins directly in-server, easy to arrange and no travel needed.
+          </li>
+          <li style="font-size:0.65rem;color:var(--body);padding:6px 0;border-bottom:1px solid rgba(161,198,217,0.1);display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--yellow);font-weight:bold;flex-shrink:0;">//</span>
+            News and code offers: Easy way to reach out people whose inbox has hundreds of emails daily.
+          </li>
+          <li style="font-size:0.65rem;color:var(--body);padding:6px 0;display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--yellow);font-weight:bold;flex-shrink:0;">//</span>
+            Chatting and discussions: Talks between community members on game-related topics and beyond.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 05  FEATURE IDEAS                                      -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule" id="ideas">
+  <div class="rule-text">05 // FEATURE IDEAS - Marketing and Pre-Production</div>
+  <div class="rule-num">05</div>
+</div>
+
+<section>
+  <div class="sec-header">
+    <span class="sec-n">05</span>
+    <span class="sec-title">Pitched Ideas - Marketing and Pre-Production</span>
+    <span class="sec-code">STATUS://UNEXECUTED (SADLY)</span>
+  </div>
+
+  <div style="font-size:0.72rem;color:var(--body);margin-bottom:28px;border-left:3px solid rgba(204,51,51,0.4);padding-left:14px;line-height:1.7;">
+    Over 6 years in video game marketing, subject generated dozens of out-of-the-box ideas for the games. Most were sadly <span class="redact">terminated at budgeting stage</span>. The following ideas were developed as part of campaign planning for ONE BTN BOSSES, LAN PARTY ADVENTURES, and SMITE 2, among dozens of other ideas for various projects.
+  </div>
+
+  <div class="ideas-grid">
+
+    <!-- IDEA 1: ONE BTN BOSSES -->
+    <div class="idea-card">
+      <div class="idea-img-zone">
+        <img src="images/one-btn-bosses.jpg"
+             alt="One Btn Bosses — game key art" />
+      </div>
+      <div class="idea-body">
+        <div class="idea-title">One BIG Btn Bosses</div>
+        <div class="idea-hook">One Btn Bosses</div>
+        <div class="idea-desc">In this game, player needs only one button to play. Create a custom huge button to play the game with. Send it to creators and media as part of the press kit, and deploy at trade shows. Tactile gimmick, instantly photographable and self-explanatory.</div>
+      </div>
+    </div>
+
+    <!-- IDEA 2: COMPUTER CHRONICLES -->
+    <div class="idea-card">
+      <div class="idea-img-zone">
+        <img src="images/lan-party-adventures.jpg"
+             alt="LAN Party Adventures — game key art" />
+      </div>
+      <div class="idea-body">
+        <div class="idea-title">Dev Diaries as 2000s-style video news</div>
+        <div class="idea-hook">LAN Party Adventures</div>
+        <div class="idea-desc">A recurring TikTok/social series styled after Computer Chronicles, presenting dev diaries and game updates as if they're 2000s TV gaming news segments. Embrace bad quality and cringe. Provoke nostalgia.</div>
+      </div>
+    </div>
+
+    <!-- IDEA 3: EX-GODS PLAY SMITE 2 -->
+    <div class="idea-card">
+      <div class="idea-img-zone">
+        <img src="images/smite2-keyart.jpg"
+             alt="SMITE 2 — game key art" />
+      </div>
+      <div class="idea-body">
+        <div class="idea-title">Ex-Gods Play Their Characters</div>
+        <div class="idea-hook">SMITE 2</div>
+        <div class="idea-desc">Approach actors who have played mythological Gods in movies and TV shows and film them playing SMITE 2 as their own God character. Growing awareness through the fun concept, actor's audience, and extended media interest.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════ -->
+<!-- 06  EXTRA / NOTION                                     -->
+<!-- ══════════════════════════════════════════════════════ -->
+<div class="rule" id="extra">
+  <div class="rule-text">06 // OTHER PROJECTS</div>
+  <div class="rule-num">06</div>
+</div>
+
+<section>
+  <div class="sec-header">
+    <span class="sec-n">06</span>
+    <span class="sec-title">Archive - Other Projects</span>
+    <span class="sec-code">DIR://NOTION/PROJECTS</span>
+  </div>
+
+  <div class="panel">
+    <div class="panel-banner">
+      <span>ARCHIVE:// OTHER PROJECTS</span>
+      <span style="color:var(--bg)">ACCESS GRANTED <span class="blink" style="color:var(--bg)">_</span></span>
+    </div>
+
+    <div style="padding:28px;">
+      <span class="sys-code">STATUS://ONGOING_COLLECTION</span>
+      <div class="project-title" style="font-size:clamp(0.9rem,1.5vw,1.3rem);">OTHER PROJECTS</div>
+      <div class="body-text">
+        An extended selection of project subject has worked on is maintained in a live Notion database. 
+      </div>
+      <div style="margin-top:24px;">
+        <a class="notion-link" href="https://swamp-passbook-014.notion.site/Maria-Khodaeva-Portfolio-ac09ca0d90424946b44db810b39721a8" target="_blank">
+          ▶ VIEW EXTENDED NOTION PROJECT DATABASE
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <a class="ft-link" href="index.html">← RETURN</a>
+  <div class="ft-mid">Maria Khodaeva // PORTFOLIO // Critical Reflex Application<br><span class="blink">_</span></div>
+  <div class="ft-right">mariakhodaeva@gmail.com</div>
+</footer>
+
+<script>
+// Scramble on hero title
+const scrambleChars = '!<>-_\\/[]{}—=+*^?#∞█▓░';
+const hero = document.getElementById('htitle');
+const target = hero.getAttribute('data-text');
+function scramble(el, txt, dur) {
+  let f=0, total=dur/16;
+  const iv = setInterval(()=>{
+    el.textContent = txt.split('').map((c,i)=>{
+      if(c===' ')return ' ';
+      if(f/total > i/txt.length) return c;
+      return scrambleChars[Math.floor(Math.random()*scrambleChars.length)];
+    }).join('');
+    f++;
+    if(f>total){el.textContent=txt;clearInterval(iv);}
+  },16);
+}
+window.addEventListener('load',()=>setTimeout(()=>scramble(hero,target,1400),200));
+
+// Active nav on scroll
+const secs = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const match = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if(match) match.classList.add('active');
+    }
+  });
+},{threshold:0.4});
+secs.forEach(s=>obs.observe(s));
+
+// View bar animation on scroll
+const bars = document.querySelectorAll('.view-bar');
+bars.forEach(b=>{
+  const w = b.style.width;
+  b.style.width='0';
+  b.style.transition='width 1s cubic-bezier(0.4,0,0.2,1)';
+  const bObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ b.style.width=w; bObs.disconnect(); }});
+  },{threshold:0.3});
+  bObs.observe(b);
+});
+
+// Glitch flicker on rule-nums
+setInterval(()=>{
+  const ns=document.querySelectorAll('.rule-num,.sec-n');
+  const p=ns[Math.floor(Math.random()*ns.length)];
+  p.style.opacity='0.02';
+  setTimeout(()=>p.style.opacity='',80);
+},2500);
+</script>
+</body>
+</html>
